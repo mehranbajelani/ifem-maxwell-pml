@@ -11,7 +11,8 @@ clear; clc; close all;
 
 % Setup paths
 fprintf('Setting up paths...\n');
-project_root = fileparts(fileparts(mfilename('fullpath')));
+% Get the project root (go up one level from src/examples)
+project_root = fileparts(fileparts(fileparts(mfilename('fullpath'))));
 addpath(project_root);
 addpath(fullfile(project_root, 'src'));
 addpath(fullfile(project_root, 'src', 'geometry'));

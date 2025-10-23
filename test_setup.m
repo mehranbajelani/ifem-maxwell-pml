@@ -1,25 +1,22 @@
-%QUICK_TEST Quick test to verify the setup works
+%TEST_SETUP Simple test to verify the setup works from project root
 %
-% This script tests if all the necessary functions are available
-% and provides a simple geometry generation test.
+% Run this from the project root directory: E:\cursor\ifem-maxwell-pml
 %
 % Author: iFEM-Maxwell-PML Project
 % Date: 2025
 
 clear; clc; close all;
 
-fprintf('=== Quick Setup Test ===\n\n');
+fprintf('=== iFEM-Maxwell-PML Setup Test ===\n\n');
 
-% Setup paths
-fprintf('Setting up paths...\n');
-% Get the project root (go up one level from src/examples)
-project_root = fileparts(fileparts(fileparts(mfilename('fullpath'))));
-addpath(project_root);
-addpath(fullfile(project_root, 'src'));
-addpath(fullfile(project_root, 'src', 'geometry'));
-addpath(fullfile(project_root, 'src', 'physics'));
-addpath(fullfile(project_root, 'src', 'post'));
-addpath(fullfile(project_root, 'src', 'examples'));
+% Add paths
+fprintf('Adding paths...\n');
+addpath(pwd);
+addpath(fullfile(pwd, 'src'));
+addpath(fullfile(pwd, 'src', 'geometry'));
+addpath(fullfile(pwd, 'src', 'physics'));
+addpath(fullfile(pwd, 'src', 'post'));
+addpath(fullfile(pwd, 'src', 'examples'));
 
 % Check if main function exists
 fprintf('Checking function availability...\n');
@@ -27,9 +24,8 @@ if exist('makeSphericalAirAndPML', 'file') == 2
     fprintf('✓ makeSphericalAirAndPML function found\n');
 else
     fprintf('✗ makeSphericalAirAndPML function not found\n');
-    fprintf('  Current path:\n');
-    path_info = path;
-    fprintf('  %s\n', path_info);
+    fprintf('  Current directory: %s\n', pwd);
+    fprintf('  Files in src/geometry/: %s\n', dir('src/geometry/'));
     return;
 end
 
@@ -70,9 +66,11 @@ try
     
 catch ME
     fprintf('✗ Function call failed: %s\n', ME.message);
-    fprintf('  Error location: %s (line %d)\n', ME.stack(1).file, ME.stack(1).line);
+    if ~isempty(ME.stack)
+        fprintf('  Error location: %s (line %d)\n', ME.stack(1).file, ME.stack(1).line);
+    end
     return;
 end
 
 fprintf('\n=== Setup Test Complete ===\n');
-fprintf('You can now run the full test scripts!\n');
+fprintf('✓ Everything is working! You can now run the full scripts.\n');
