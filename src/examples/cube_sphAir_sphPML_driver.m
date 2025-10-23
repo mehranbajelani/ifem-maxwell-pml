@@ -9,6 +9,16 @@
 
 clear; clc; close all;
 
+% Setup paths
+fprintf('Setting up paths...\n');
+project_root = fileparts(fileparts(mfilename('fullpath')));
+addpath(project_root);
+addpath(fullfile(project_root, 'src'));
+addpath(fullfile(project_root, 'src', 'geometry'));
+addpath(fullfile(project_root, 'src', 'physics'));
+addpath(fullfile(project_root, 'src', 'post'));
+addpath(fullfile(project_root, 'src', 'examples'));
+
 fprintf('=== iFEM-Maxwell-PML: Phase 1 Geometry Driver ===\n\n');
 
 % Physical parameters (SI units)
